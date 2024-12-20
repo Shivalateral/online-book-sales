@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Book Sales</title>
+
+    <!-- Bootstrap CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl5/Ye6N5WQlB5eDXoIcqsQOSslIw6Z1ENiQUqZ0C4" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="/styles/styles.css">
+</head>
+<body>
+    <header class="bg-primary text-white text-center py-4">
+        <h1>Welcome to Online Book Sales</h1>
+ 
+      </header>
+      <h1>Welcome to My Web App</h1>
+      <p><a href="/login">Login</a> | <a href="/signup">Sign Up</a></p>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+                <a class="navbar-brand" href="/">Online Book Sales</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/books">Books</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/customer">customer</a></li>
+                        
+                        <li class="nav-item">
+                            <a class="nav-link" href="/cart">
+                                <i class="bi bi-cart"></i> Cart <span id="cart-count">(0)</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container my-4">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <h2>Explore a Wide Range of Books</h2>
+                <p class="lead">Discover books from different genres, including engineering, pharmacy, science, and coding. Enjoy exclusive deals and new releases!</p>
+                <a href="/books" class="btn btn-primary btn-lg">View Books</a>
+            </div>
+        </div>
+
+        <!-- Cart Summary -->
+        <div id="cart-summary" class="my-4" style="display: none;">
+            <h3>Your Cart</h3>
+            <ul id="cart-items" class="list-group">
+                <!-- Cart items dynamically added here -->
+            </ul>
+            <a href="/checkout" class="btn btn-success mt-3" id="checkout-btn" style="display: none;">Proceed to Checkout</a>
+        </div>
+
+      
+        </div>
+    </main>
+
+    <footer class="bg-dark text-white text-center py-3">
+        <p>&copy; 2024 Online Book Sales. All rights reserved.</p>
+    </footer>
+
+    <!-- Bootstrap JS Bundle CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoJoXELFCxPmg6A8aUhZpOV1CvlnkF4aKp/hE5lbY1uwK0Q" crossorigin="anonymous"></script>
+
+    <script>
+        // Cart functionality
+        let cart = [];
+
+        // Function to update the cart display
+        function updateCart() {
+            const cartCount = document.getElementById('cart-count');
+            const cartItems = document.getElementById('cart-items');
+            const cartSummary = document.getElementById('cart-summary');
+            const emptyCartMessage = document.getElementById('empty-cart-message');
+            const checkoutBtn = document.getElementById('checkout-btn');
+
+            cartCount.textContent = `(${cart.length})`;
+            cartItems.innerHTML = '';
+
+            if (cart.length > 0) {
+                // Show cart summary and checkout button
+                cartSummary.style.display = 'block';
+                emptyCartMessage.style.display = 'none';
+                checkoutBtn.style.display = 'inline-block';
+
+                // Add cart items to the list
+                cart.forEach(book => {
+                    const li = document.createElement('li');
+                    li.classList.add('list-group-item');
+                    li.textContent = `${book.title} by ${book.author}`;
+                    cartItems.appendChild(li);
+                });
+            } else {
+                // Show empty cart message
+                cartSummary.style.display = 'none';
+                emptyCartMessage.style.display = 'block';
+                checkoutBtn.style.display = 'none';
+            }
+        }
+
+        // Example: add books to the cart
+        // (You may call this function based on user interaction like adding to cart from book list)
+        function addToCart(book) {
+            cart.push(book);
+            updateCart();
+        }
+
+        // Initial update of cart (for when the page loads and the cart might already have items)
+        updateCart();
+    </script>
+</body>
+</html>
